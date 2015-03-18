@@ -10,3 +10,5 @@ github_username:  bernk
 
 # Build settings
 markdown: kramdown
+sass:
+  style: compressed

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Snowdash</title>
+  <link rel="stylesheet" href="//www.snow-forecast.com/stylesheets/feed.css">
+  <style>
+    * {box-sizing: border-box;}
+    html {
+      font: normal 16px/1.2 Helvetica Neue, Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+    }
+
+    .webcam {
+      border: 1px solid;
+    }
+    .webcam > img {
+      display: block;
+      width: 200px;
+      height: auto;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Webcams</h1>
+  <div class="webcam">
+    <span class="location">Squamsih</span>
+    <span class="elevation">885 m</span>
+    <img src="http://webcam.seatoskygondola.com:8082/Streaming/channels/101/picture" alt="Summit Lodge">
+  </div>
+  <div class="webcam">
+    <span class="location">Cayoosh Pass</span>
+    <span class="elevation">1279 m</span>
+    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/182.jpg">
+  </div>
+  <div class="webcam">
+    <span class="location">Coquihalla</span>
+    <span class="elevation">980 m</span>
+    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/734.jpg">
+  </div>
+  <div class="webcam">
+    <span class="location">Kootenay Pass</span>
+    <span class="elevation">1781 m</span>
+    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/5.jpg">
+  </div>
+  <div class="webcam">
+    <span class="location">Pemberton</span>
+    <span class="elevation">209 m</span>
+    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/598.jpg">
+  </div>
+  <div class="webcam">
+    <span class="location">Cypress</span>
+    <span class="elevation">910 m</span>
+    <img src="http://snowstakecam.cypressmountain.com/axis-cgi/jpg/image.cgi?resolution=1024x768&dummy=1510545948377">
+  </div>
+  <h1>Links</h1>
+
+  <h1>Forecasts</h1>
+
+  <div id="wf-weatherfeed">
+
+    <a href="http://www.snow-forecast.com/resorts/Mount-Baker/6day/mid">Baker</a>
+    <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Mount-Baker/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+
+    <a href="http://www.snow-forecast.com/resorts/Cypress-Mountain/6day/mid">Cypress</a>
+    <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Cypress-Mountain/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+
+    <a href="http://www.snow-forecast.com/resorts/Whistler-Blackcomb/6day/mid">Whistler</a>
+    <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Whistler-Blackcomb/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+
+  </div>
+
+<h1>Links</h1>
+<a href="http://www.snow-forecast.com/maps/dynamic/van?type=snow.last3days&&over=none&&symbols=snow&hr=18">Snow last 3 days</a>
+</body>
+</html>

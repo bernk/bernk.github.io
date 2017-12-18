@@ -14,12 +14,19 @@
       margin: 0;
     }
 
+    .webcam-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
     .webcam {
       border: 1px solid;
+      width: 320px;
+      flex-shrink: 0;
     }
     .webcam > img {
       display: block;
-      width: 200px;
+      width: 100%;
       height: auto;
     }
 
@@ -27,15 +34,27 @@
 </head>
 <body>
   <h1>Webcams</h1>
+
+<section class="webcam-container">
+  <div class="webcam">
+    <span class="location">Pemberton</span>
+    <span class="elevation">209 m</span>
+    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/598.jpg">
+  </div>
+  <div class="webcam">
+    <span class="location">Whistler</span>
+    <span class="elevation">674 m</span>
+    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/528.jpg">
+  </div>
   <div class="webcam">
     <span class="location">Squamsih</span>
     <span class="elevation">885 m</span>
     <img src="http://webcam.seatoskygondola.com:8082/Streaming/channels/101/picture" alt="Summit Lodge">
   </div>
   <div class="webcam">
-    <span class="location">Cayoosh Pass</span>
-    <span class="elevation">1279 m</span>
-    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/182.jpg">
+    <span class="location">Cypress</span>
+    <span class="elevation">910 m</span>
+    <img src="http://snowstakecam.cypressmountain.com/axis-cgi/jpg/image.cgi?resolution=1024x768&dummy=1510545948377">
   </div>
   <div class="webcam">
     <span class="location">Coquihalla</span>
@@ -43,21 +62,21 @@
     <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/734.jpg">
   </div>
   <div class="webcam">
+    <span class="location">Shames</span>
+    <span class="elecation">740 m</span>
+    <img src="http://ski-shames.ca/webcam/capture1.jpg">
+  </div>
+  <div class="webcam">
+    <span class="location">Cayoosh Pass</span>
+    <span class="elevation">1279 m</span>
+    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/182.jpg">
+  </div>
+  <div class="webcam">
     <span class="location">Kootenay Pass</span>
     <span class="elevation">1781 m</span>
     <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/5.jpg">
   </div>
-  <div class="webcam">
-    <span class="location">Pemberton</span>
-    <span class="elevation">209 m</span>
-    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/598.jpg">
-  </div>
-  <div class="webcam">
-    <span class="location">Cypress</span>
-    <span class="elevation">910 m</span>
-    <img src="http://snowstakecam.cypressmountain.com/axis-cgi/jpg/image.cgi?resolution=1024x768&dummy=1510545948377">
-  </div>
-  <h1>Links</h1>
+</section>
 
   <h1>Forecasts</h1>
 

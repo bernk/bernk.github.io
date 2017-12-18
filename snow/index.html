@@ -14,8 +14,15 @@
       margin: 0;
     }
 
+    .webcam-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
     .webcam {
       border: 1px solid;
+      width: 320px;
+      flex-shrink: 0;
     }
     .webcam > img {
       display: block;
@@ -27,6 +34,8 @@
 </head>
 <body>
   <h1>Webcams</h1>
+
+<section class="webcam-container">
   <div class="webcam">
     <span class="location">Pemberton</span>
     <span class="elevation">209 m</span>
@@ -67,7 +76,7 @@
     <span class="elevation">1781 m</span>
     <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/5.jpg">
   </div>
-  <h1>Links</h1>
+</section>
 
   <h1>Forecasts</h1>
 

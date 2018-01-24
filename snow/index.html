@@ -29,71 +29,98 @@
       width: 100%;
       height: auto;
     }
+    #cayoosh-weather {
+      width: 500px;
+      height: 250px;
+      border: 0;
+    }
+
+    #cayoosh-weather h1 {
+      /* content: 'Cayoosh'; */
+      color: red;
+      font-family: sans-serif !important;
+    }
 
   </style>
 </head>
 <body>
-  <h1>Webcams</h1>
+  <section>
+    <h1>Webcams</h1>
+    <div class="webcam-container">
+      <div class="webcam">
+        <span class="location">Pemberton</span>
+        <span class="elevation">209 m</span>
+        <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/598.jpg">
+      </div>
+      <div class="webcam">
+        <span class="location">Whistler</span>
+        <span class="elevation">674 m</span>
+        <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/528.jpg">
+      </div>
+      <div class="webcam">
+        <span class="location">Shames</span>
+        <span class="elecation">740 m</span>
+        <img src="http://ski-shames.ca/webcam/capture1.jpg">
+      </div>
+      <div class="webcam">
+        <span class="location">Squamsih</span>
+        <span class="elevation">885 m</span>
+        <img src="http://webcam.seatoskygondola.com:8082/Streaming/channels/101/picture" alt="Summit Lodge">
+      </div>
+      <div class="webcam">
+        <span class="location">Cypress</span>
+        <span class="elevation">910 m</span>
+        <img src="http://snowstakecam.cypressmountain.com/axis-cgi/jpg/image.cgi?resolution=1024x768&dummy=1510545948377">
+      </div>
+      <div class="webcam">
+        <span class="location">Coquihalla</span>
+        <span class="elevation">980 m</span>
+        <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/734.jpg">
+      </div>
+      <div class="webcam">
+        <span class="location">Cayoosh Pass</span>
+        <span class="elevation">1279 m</span>
+        <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/182.jpg">
+      </div>
+      <div class="webcam">
+        <span class="location">Whistler Mountain (Pig Alley)</span>
+        <span class="elevation">1650 m</span>
+        <img src="https://common.snow.com/mtncams/wbsnowstake.jpg">
+      </div>
+      <div class="webcam">
+        <span class="location">Kootenay Pass</span>
+        <span class="elevation">1781 m</span>
+        <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/5.jpg">
+      </div>
+    </div>
+  </section>
 
-<section class="webcam-container">
-  <div class="webcam">
-    <span class="location">Pemberton</span>
-    <span class="elevation">209 m</span>
-    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/598.jpg">
-  </div>
-  <div class="webcam">
-    <span class="location">Whistler</span>
-    <span class="elevation">674 m</span>
-    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/528.jpg">
-  </div>
-  <div class="webcam">
-    <span class="location">Squamsih</span>
-    <span class="elevation">885 m</span>
-    <img src="http://webcam.seatoskygondola.com:8082/Streaming/channels/101/picture" alt="Summit Lodge">
-  </div>
-  <div class="webcam">
-    <span class="location">Cypress</span>
-    <span class="elevation">910 m</span>
-    <img src="http://snowstakecam.cypressmountain.com/axis-cgi/jpg/image.cgi?resolution=1024x768&dummy=1510545948377">
-  </div>
-  <div class="webcam">
-    <span class="location">Coquihalla</span>
-    <span class="elevation">980 m</span>
-    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/734.jpg">
-  </div>
-  <div class="webcam">
-    <span class="location">Shames</span>
-    <span class="elecation">740 m</span>
-    <img src="http://ski-shames.ca/webcam/capture1.jpg">
-  </div>
-  <div class="webcam">
-    <span class="location">Cayoosh Pass</span>
-    <span class="elevation">1279 m</span>
-    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/182.jpg">
-  </div>
-  <div class="webcam">
-    <span class="location">Kootenay Pass</span>
-    <span class="elevation">1781 m</span>
-    <img src="http://images.drivebc.ca/bchighwaycam/pub/cameras/5.jpg">
-  </div>
-</section>
+  <section>
+    <h1>Current Weather</h1>
+    <iframe id="cayoosh-weather" src="http://images.drivebc.ca/bchighwaycam/pub/weather/26224.html"></iframe>
+  </section>
 
-  <h1>Forecasts</h1>
+  <section>
+    <h1>Forecasts</h1>
+    <div id="wf-weatherfeed">
 
-  <div id="wf-weatherfeed">
+      <a href="http://www.snow-forecast.com/resorts/Mount-Baker/6day/mid">Baker</a>
+      <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Mount-Baker/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
 
-    <a href="http://www.snow-forecast.com/resorts/Mount-Baker/6day/mid">Baker</a>
-    <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Mount-Baker/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+      <a href="http://www.snow-forecast.com/resorts/Cypress-Mountain/6day/mid">Cypress</a>
+      <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Cypress-Mountain/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
 
-    <a href="http://www.snow-forecast.com/resorts/Cypress-Mountain/6day/mid">Cypress</a>
-    <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Cypress-Mountain/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+      <a href="http://www.snow-forecast.com/resorts/Whistler-Blackcomb/6day/mid">Whistler</a>
+      <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Whistler-Blackcomb/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
 
-    <a href="http://www.snow-forecast.com/resorts/Whistler-Blackcomb/6day/mid">Whistler</a>
-    <iframe style="overflow:hidden;border:none;" allowtransparency="true" height="272" width="469" src="//www.snow-forecast.com/resorts/Whistler-Blackcomb/forecasts/feed/mid/m" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+    </div>
+  </section>
 
-  </div>
+  <section>
+    <h1>Links</h1>
+    <a href="http://www.snow-forecast.com/maps/dynamic/van?type=snow.last3days&&over=none&&symbols=snow&hr=18">Snow last 3 days</a>
+    <a href="http://www.avalanche.ca/weather/stations/74">Cayoosh weather data for last week</a>
+  </section>
 
-<h1>Links</h1>
-<a href="http://www.snow-forecast.com/maps/dynamic/van?type=snow.last3days&&over=none&&symbols=snow&hr=18">Snow last 3 days</a>
 </body>
 </html>

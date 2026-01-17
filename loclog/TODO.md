@@ -4,6 +4,7 @@
 
 - [ ] History export to clipboard
 - [ ] History management (ability to reorder and edit individual entries?)
+- [ ] Passenger count logging
 
 ## Changes
 

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Shift Arrival Logger</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --bg-card: #ffffff;
+      --btn-primary: #007bff;
+      --btn-primary-hover: #0056b3;
+      --btn-danger: #dc3545;
+      --btn-danger-hover: #c82333;
+      --btn-secondary: #6c757d;
+      --text: #333333;
+      --text-light: #666666;
+      --border: #dddddd;
+      --success: #28a745;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* Header */
+    header {
+      background: var(--btn-primary);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    nav button {
+      flex: 1;
+      padding: 1rem;
+      font-size: 1rem;
+      font-family: var(--font);
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    nav button.active {
+      color: var(--btn-primary);
+      border-bottom-color: var(--btn-primary);
+      font-weight: 600;
+    }
+
+    nav button:hover {
+      background: var(--bg);
+    }
+
+    /* Main content */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .screen {
+      display: none;
+      height: 100%;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Location buttons (Main screen) */
+    #main-screen .locations-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .location-btn {
+      min-height: 80px;
+      padding: 1.5rem 2rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-family: var(--font);
+      background: var(--btn-primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+      word-break: break-word;
+    }
+
+    .location-btn:hover {
+      background: var(--btn-primary-hover);
+      transform: scale(1.02);
+    }
+
+    .location-btn:active {
+      transform: scale(0.98);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-light);
+    }
+
+    .empty-state p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Manage screen */
+    #manage-screen .add-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #manage-screen .add-form input {
+      flex: 1;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-family: var(--font);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+    }
+
+    #manage-screen .add-form input:focus {
+      outline: none;
+      border-color: var(--btn-primary);
+    }
+
+    #manage-screen .add-form button {
+      padding: 1rem 1.5rem;
+      font-size: 1.2rem;
+      font-family: var(--font);
+      background: var(--success);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    #manage-screen .add-form button:hover {
+      background: #218838;
+    }
+
+    .manage-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .manage-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .manage-item .reorder-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .manage-item .reorder-btns button {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.9rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .manage-item .reorder-btns button:hover {
+      background: var(--border);
+    }
+
+    .manage-item .reorder-btns button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .manage-item .location-name {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 1.2rem;
+      font-family: var(--font);
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background: transparent;
+      cursor: text;
+    }
+
+    .manage-item .location-name:focus {
+      outline: none;
+      border-color: var(--btn-primary);
+      background: white;
+    }
+
+    .manage-item .delete-btn {
+      padding: 0.75rem 1rem;
+      font-size: 1.2rem;
+      background: var(--btn-danger);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .manage-item .delete-btn:hover {
+      background: var(--btn-danger-hover);
+    }
+
+    /* Log screen */
+    #log-screen {
+      gap: 1rem;
+    }
+
+    #log-screen .log-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    #log-screen .log-actions button {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-family: var(--font);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #log-screen .clear-btn {
+      background: var(--btn-danger);
+      color: white;
+    }
+
+    #log-screen .clear-btn:hover {
+      background: var(--btn-danger-hover);
+    }
+
+    .log-list {
+      flex: 1;
+      overflow-y: auto;
+      list-style: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .log-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-family: monospace;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .log-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--success);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Desktop styles */
+    @media (min-width: 768px) {
+      main {
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      #main-screen .locations-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shift Arrival Logger</h1>
+  </header>
+
+  <nav>
+    <button class="active" data-screen="main" aria-label="Main screen - log arrivals">Log</button>
+    <button data-screen="manage" aria-label="Manage locations">Locations</button>
+    <button data-screen="log" aria-label="View arrival history">History</button>
+  </nav>
+
+  <main>
+    <!-- Main Screen: Tap to log arrivals -->
+    <section id="main-screen" class="screen active" aria-label="Log arrivals">
+      <div class="locations-grid" id="locations-grid">
+        <!-- Location buttons rendered by JS -->
+      </div>
+      <div class="empty-state" id="main-empty" style="display:none;">
+        <p>No locations yet</p>
+        <button class="location-btn" onclick="showScreen('manage')">+ Add your first location</button>
+      </div>
+    </section>
+
+    <!-- Manage Screen: Add/edit/delete/reorder locations -->
+    <section id="manage-screen" class="screen" aria-label="Manage locations">
+      <div class="add-form">
+        <input type="text" id="new-location-input" placeholder="New location name" aria-label="New location name" maxlength="50">
+        <button id="add-location-btn" aria-label="Add location">+ Add</button>
+      </div>
+      <ul class="manage-list" id="manage-list">
+        <!-- Location items rendered by JS -->
+      </ul>
+      <div class="empty-state" id="manage-empty" style="display:none;">
+        <p>No locations yet. Add one above!</p>
+      </div>
+    </section>
+
+    <!-- Log Screen: View arrival history -->
+    <section id="log-screen" class="screen" aria-label="Arrival history">
+      <div class="log-actions">
+        <button class="clear-btn" id="clear-log-btn" aria-label="Clear all history">Clear All</button>
+      </div>
+      <ul class="log-list" id="log-list">
+        <!-- Log entries rendered by JS -->
+      </ul>
+      <div class="empty-state" id="log-empty" style="display:none;">
+        <p>No arrivals logged yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script>
+    // ============ State ============
+    const STORAGE_KEYS = {
+      locations: 'shiftlogger_locations',
+      log: 'shiftlogger_log'
+    };
+
+    let locations = [];
+    let arrivalLog = [];
+
+    // ============ Storage ============
+    function loadLocations() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEYS.locations);
+        locations = data ? JSON.parse(data) : [];
+      } catch (e) {
+        console.error('Failed to load locations:', e);
+        locations = [];
+      }
+    }
+
+    function saveLocations() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.locations, JSON.stringify(locations));
+      } catch (e) {
+        console.error('Failed to save locations:', e);
+      }
+    }
+
+    function loadLog() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEYS.log);
+        arrivalLog = data ? JSON.parse(data) : [];
+      } catch (e) {
+        console.error('Failed to load log:', e);
+        arrivalLog = [];
+      }
+    }
+
+    function saveLog() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.log, JSON.stringify(arrivalLog));
+      } catch (e) {
+        console.error('Failed to save log:', e);
+      }
+    }
+
+    // ============ Navigation ============
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+
+      document.getElementById(screenId + '-screen').classList.add('active');
+      document.querySelector(`nav button[data-screen="${screenId}"]`).classList.add('active');
+
+      // Re-render on screen switch
+      if (screenId === 'main') renderMainScreen();
+      if (screenId === 'manage') renderManageScreen();
+      if (screenId === 'log') renderLogScreen();
+    }
+
+    // ============ Main Screen ============
+    function renderMainScreen() {
+      const grid = document.getElementById('locations-grid');
+      const empty = document.getElementById('main-empty');
+
+      if (locations.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      grid.style.display = '';
+      empty.style.display = 'none';
+
+      grid.innerHTML = locations.map((loc, i) => `
+        <button class="location-btn" data-index="${i}" aria-label="Log arrival at ${loc}">
+          ${escapeHtml(loc)}
+        </button>
+      `).join('');
+    }
+
+    function logArrival(locationIndex) {
+      const location = locations[locationIndex];
+      if (!location) return;
+
+      const now = new Date();
+      const isoDate = now.toISOString().split('T')[0];
+      const localTime = now.toLocaleTimeString();
+
+      const entry = `ARRIVED at ${location} on ${isoDate} ${localTime}`;
+      arrivalLog.unshift(entry); // newest first
+      saveLog();
+
+      showToast(`Logged: ${location}`);
+    }
+
+    // ============ Manage Screen ============
+    function renderManageScreen() {
+      const list = document.getElementById('manage-list');
+      const empty = document.getElementById('manage-empty');
+
+      if (locations.length === 0) {
+        list.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      list.style.display = '';
+      empty.style.display = 'none';
+
+      list.innerHTML = locations.map((loc, i) => `
+        <li class="manage-item" data-index="${i}">
+          <div class="reorder-btns">
+            <button class="move-up" ${i === 0 ? 'disabled' : ''} aria-label="Move up">&#9650;</button>
+            <button class="move-down" ${i === locations.length - 1 ? 'disabled' : ''} aria-label="Move down">&#9660;</button>
+          </div>
+          <input type="text" class="location-name" value="${escapeHtml(loc)}" maxlength="50" aria-label="Location name">
+          <button class="delete-btn" aria-label="Delete ${loc}">&times;</button>
+        </li>
+      `).join('');
+    }
+
+    function addLocation(name) {
+      const trimmed = name.trim();
+      if (!trimmed) return;
+
+      locations.push(trimmed);
+      saveLocations();
+      renderManageScreen();
+    }
+
+    function deleteLocation(index) {
+      if (index < 0 || index >= locations.length) return;
+
+      const name = locations[index];
+      if (confirm(`Delete "${name}"?`)) {
+        locations.splice(index, 1);
+        saveLocations();
+        renderManageScreen();
+      }
+    }
+
+    function renameLocation(index, newName) {
+      const trimmed = newName.trim();
+      if (!trimmed || index < 0 || index >= locations.length) return;
+
+      locations[index] = trimmed;
+      saveLocations();
+    }
+
+    function moveLocation(index, direction) {
+      const newIndex = index + direction;
+      if (newIndex < 0 || newIndex >= locations.length) return;
+
+      [locations[index], locations[newIndex]] = [locations[newIndex], locations[index]];
+      saveLocations();
+      renderManageScreen();
+    }
+
+    // ============ Log Screen ============
+    function renderLogScreen() {
+      const list = document.getElementById('log-list');
+      const empty = document.getElementById('log-empty');
+
+      if (arrivalLog.length === 0) {
+        list.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      list.style.display = '';
+      empty.style.display = 'none';
+
+      list.innerHTML = arrivalLog.map(entry => `
+        <li>${escapeHtml(entry)}</li>
+      `).join('');
+    }
+
+    function clearLog() {
+      if (arrivalLog.length === 0) return;
+
+      if (confirm('Clear all arrival history?')) {
+        arrivalLog = [];
+        saveLog();
+        renderLogScreen();
+      }
+    }
+
+    // ============ Toast ============
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    // ============ Utilities ============
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ============ Event Listeners ============
+    function initEventListeners() {
+      // Navigation
+      document.querySelector('nav').addEventListener('click', (e) => {
+        if (e.target.matches('button[data-screen]')) {
+          showScreen(e.target.dataset.screen);
+        }
+      });
+
+      // Main screen - log arrivals (event delegation)
+      document.getElementById('locations-grid').addEventListener('click', (e) => {
+        const btn = e.target.closest('.location-btn');
+        if (btn) {
+          logArrival(parseInt(btn.dataset.index, 10));
+        }
+      });
+
+      // Manage screen - add location
+      document.getElementById('add-location-btn').addEventListener('click', () => {
+        const input = document.getElementById('new-location-input');
+        addLocation(input.value);
+        input.value = '';
+        input.focus();
+      });
+
+      document.getElementById('new-location-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const input = e.target;
+          addLocation(input.value);
+          input.value = '';
+        }
+      });
+
+      // Manage screen - delete, rename, reorder (event delegation)
+      document.getElementById('manage-list').addEventListener('click', (e) => {
+        const item = e.target.closest('.manage-item');
+        if (!item) return;
+
+        const index = parseInt(item.dataset.index, 10);
+
+        if (e.target.matches('.delete-btn')) {
+          deleteLocation(index);
+        } else if (e.target.matches('.move-up')) {
+          moveLocation(index, -1);
+        } else if (e.target.matches('.move-down')) {
+          moveLocation(index, 1);
+        }
+      });
+
+      document.getElementById('manage-list').addEventListener('change', (e) => {
+        if (e.target.matches('.location-name')) {
+          const item = e.target.closest('.manage-item');
+          const index = parseInt(item.dataset.index, 10);
+          renameLocation(index, e.target.value);
+        }
+      });
+
+      // Log screen - clear
+      document.getElementById('clear-log-btn').addEventListener('click', clearLog);
+    }
+
+    // ============ Init ============
+    function init() {
+      loadLocations();
+      loadLog();
+      initEventListeners();
+      renderMainScreen();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

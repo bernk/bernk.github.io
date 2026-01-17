@@ -487,9 +487,14 @@
 
       const now = new Date();
       const isoDate = now.toISOString().split('T')[0];
-      const localTime = now.toLocaleTimeString();
+      // const localTime = now.toLocaleTimeString();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const time24Hour = `${hours}:${minutes}`;
 
-      const entry = `ARRIVED at ${location} on ${isoDate} ${localTime}`;
+      // const entry = `ARRIVED at ${location} on ${isoDate} ${localTime}`;
+      const entry = `${isoDate} ${time24Hour} ${location}`;
+
       arrivalLog.unshift(entry); // newest first
       saveLog();
 

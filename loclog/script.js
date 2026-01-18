@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 };
 
 let locations = [];
-let arrivalLog = [];
+let locationLog = [];
 
 // ============ Storage ============
 function loadLocations() {
@@ -29,16 +29,16 @@ function saveLocations() {
 function loadLog() {
   try {
     const data = localStorage.getItem(STORAGE_KEYS.log);
-    arrivalLog = data ? JSON.parse(data) : [];
+    locationLog = data ? JSON.parse(data) : [];
   } catch (e) {
     console.error('Failed to load log:', e);
-    arrivalLog = [];
+    locationLog = [];
   }
 }
 
 function saveLog() {
   try {
-    localStorage.setItem(STORAGE_KEYS.log, JSON.stringify(arrivalLog));
+    localStorage.setItem(STORAGE_KEYS.log, JSON.stringify(locationLog));
   } catch (e) {
     console.error('Failed to save log:', e);
   }
@@ -79,7 +79,7 @@ function renderMainScreen() {
   `).join('');
 }
 
-function logArrival(locationIndex) {
+function logLocation(locationIndex) {
   const location = locations[locationIndex];
   if (!location) return;
 
@@ -93,7 +93,7 @@ function logArrival(locationIndex) {
   // const entry = `ARRIVED at ${location} on ${isoDate} ${localTime}`;
   const entry = `${isoDate} ${time24Hour} ${location}`;
 
-  arrivalLog.unshift(entry); // newest first
+  locationLog.unshift(entry); // newest first
   saveLog();
 
   showToast(`Logged: ${location}`);
@@ -167,7 +167,7 @@ function renderLogScreen() {
   const list = document.getElementById('log-list');
   const empty = document.getElementById('log-empty');
 
-  if (arrivalLog.length === 0) {
+  if (locationLog.length === 0) {
     list.style.display = 'none';
     empty.style.display = 'block';
     return;
@@ -176,16 +176,16 @@ function renderLogScreen() {
   list.style.display = '';
   empty.style.display = 'none';
 
-  list.innerHTML = arrivalLog.map(entry => `
+  list.innerHTML = locationLog.map(entry => `
     <li>${escapeHtml(entry)}</li>
   `).join('');
 }
 
 function clearLog() {
-  if (arrivalLog.length === 0) return;
+  if (locationLog.length === 0) return;
 
   if (confirm('Clear all logs?')) {
-    arrivalLog = [];
+    locationLog = [];
     saveLog();
     renderLogScreen();
   }
@@ -222,7 +222,7 @@ function initEventListeners() {
   document.getElementById('locations-grid').addEventListener('click', (e) => {
     const btn = e.target.closest('.location-btn');
     if (btn) {
-      logArrival(parseInt(btn.dataset.index, 10));
+      logLocation(parseInt(btn.dataset.index, 10));
     }
   });
 

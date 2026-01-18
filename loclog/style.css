@@ -107,8 +107,8 @@ main {
 
 .location-btn {
     min-height: 80px;
-    padding: 1.5rem 2rem;
-    font-size: 1.5rem;
+    padding: 1.5rem 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     font-family: var(--font);
     background: var(--btn-primary);

@@ -184,7 +184,7 @@ function renderLogScreen() {
 function clearLog() {
   if (arrivalLog.length === 0) return;
 
-  if (confirm('Clear all arrival history?')) {
+  if (confirm('Clear all logs?')) {
     arrivalLog = [];
     saveLog();
     renderLogScreen();

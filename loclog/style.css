@@ -242,15 +242,11 @@ main {
 .manage-item .delete-btn {
     padding: 0.75rem 1rem;
     font-size: 1.2rem;
-    background: var(--btn-danger);
-    color: white;
+    background: var(--bg-card);
+    color: var(--btn-danger);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-}
-
-.manage-item .delete-btn:hover {
-    background: var(--btn-danger-hover);
 }
 
 /* Log screen */

@@ -130,6 +130,94 @@ main {
     transform: scale(0.98);
 }
 
+/* Manual entry button */
+.location-btn.manual-btn {
+    background: var(--btn-secondary);
+}
+
+.location-btn.manual-btn:hover {
+    background: #5a6268;
+}
+
+/* Manual entry card overlay */
+.manual-card-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.manual-card-overlay.show {
+    display: flex;
+}
+
+.manual-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.manual-card h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    color: var(--text);
+}
+
+.manual-card input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-family: var(--font);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.manual-card input:focus {
+    outline: none;
+    border-color: var(--btn-primary);
+}
+
+.manual-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.manual-card-actions button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-family: var(--font);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.manual-card-cancel {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.manual-card-cancel:hover {
+    background: var(--border);
+}
+
+.manual-card-submit {
+    background: var(--btn-primary);
+    color: white;
+}
+
+.manual-card-submit:hover {
+    background: var(--btn-primary-hover);
+}
+
 .empty-state {
     text-align: center;
     padding: 3rem 1rem;

@@ -63,20 +63,23 @@ function renderMainScreen() {
   const grid = document.getElementById('locations-grid');
   const empty = document.getElementById('main-empty');
 
-  if (locations.length === 0) {
-    grid.style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-
+  // Always show grid (manual button is always available)
   grid.style.display = '';
   empty.style.display = 'none';
 
-  grid.innerHTML = locations.map((loc, i) => `
+  const manualButton = `
+    <button class="location-btn manual-btn" id="manual-entry-btn" aria-label="Manual entry">
+      Manual Entry
+    </button>
+  `;
+
+  const locationButtons = locations.map((loc, i) => `
     <button class="location-btn" data-index="${i}" aria-label="Log arrival at ${loc}">
       ${escapeHtml(loc)}
     </button>
   `).join('');
+
+  grid.innerHTML = manualButton + locationButtons;
 }
 
 function logLocation(locationIndex) {
@@ -108,6 +111,48 @@ function logLocation(locationIndex) {
   saveLog();
 
   showToast(`Logged: ${location}`);
+}
+
+function logManualEntry(name) {
+  const trimmed = name.trim();
+  if (!trimmed) return;
+
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const monthCorrected = now.getMonth() + 1;
+  const month = monthCorrected.toString().padStart(2, '0');
+  const day = now.getDate().toString().padStart(2, '0');
+  const yyyymmdd = `${year}-${month}-${day}`;
+
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const displayTime = `${hours}:${minutes}`;
+  const roundedTime = roundTime(now.getHours(), now.getMinutes());
+
+  const entry = {
+    locationDate: yyyymmdd,
+    locationTime: { displayTime, roundedTime },
+    locationName: trimmed
+  };
+
+  locationLog.push(entry);
+  saveLog();
+
+  showToast(`Logged: ${trimmed}`);
+}
+
+function showManualInput() {
+  const overlay = document.getElementById('manual-card-overlay');
+  const input = document.getElementById('manual-input');
+  overlay.classList.add('show');
+  input.value = '';
+  input.focus();
+}
+
+function hideManualInput() {
+  const overlay = document.getElementById('manual-card-overlay');
+  overlay.classList.remove('show');
 }
 
 // ============ Manage Screen ============
@@ -244,9 +289,40 @@ function initEventListeners() {
 
   // Main screen - log arrivals (event delegation)
   document.getElementById('locations-grid').addEventListener('click', (e) => {
+    // Handle manual entry button
+    if (e.target.matches('#manual-entry-btn')) {
+      showManualInput();
+      return;
+    }
+
+    // Handle location buttons
     const btn = e.target.closest('.location-btn');
-    if (btn) {
+    if (btn && btn.dataset.index !== undefined) {
       logLocation(parseInt(btn.dataset.index, 10));
+    }
+  });
+
+  // Manual entry card
+  document.getElementById('manual-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      logManualEntry(e.target.value);
+      hideManualInput();
+    } else if (e.key === 'Escape') {
+      hideManualInput();
+    }
+  });
+
+  document.getElementById('manual-submit-btn').addEventListener('click', () => {
+    const input = document.getElementById('manual-input');
+    logManualEntry(input.value);
+    hideManualInput();
+  });
+
+  document.getElementById('manual-cancel-btn').addEventListener('click', hideManualInput);
+
+  document.getElementById('manual-card-overlay').addEventListener('click', (e) => {
+    if (e.target.matches('.manual-card-overlay')) {
+      hideManualInput();
     }
   });
 

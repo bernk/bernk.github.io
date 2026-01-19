@@ -193,11 +193,11 @@ function renderLogScreen() {
     // locationName: location
 
   list.innerHTML = locationLog.toReversed().map(entry => `
-    <li>
-    <span class='log-date'>${escapeHtml(entry.locationDate)}</span>
-    <span class='log-time'>${escapeHtml(entry.locationTime.displayTime)}</span>
-    <span class='log-name'>${escapeHtml(entry.locationName)}</span>
-    </li>
+    <div class='log-list-entry'>
+        <span class='log-date'>${escapeHtml(entry.locationDate)}</span>
+        <span class='log-time'>${escapeHtml(entry.locationTime.displayTime)}</span>
+        <span class='log-name'>${escapeHtml(entry.locationName)}</span>
+    </div>
   `).join('');
 }
 

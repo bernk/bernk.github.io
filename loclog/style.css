@@ -281,14 +281,13 @@ main {
 .log-list {
     flex: 1;
     overflow-y: auto;
-    list-style: none;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 1rem;
 }
 
-.log-list li {
+.log-list .log-list-entry {
     padding: 0.75rem 0;
     border-bottom: 1px solid var(--border);
     font-family: monospace;
@@ -301,7 +300,7 @@ main {
     color:#dddddd;
 }
 
-.log-list li:last-child {
+.log-list .log-list-entry:last-child {
     border-bottom: none;
 }
 

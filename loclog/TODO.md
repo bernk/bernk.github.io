@@ -6,11 +6,11 @@
 
 ## Features
 
-- [ ] Manual log entry
-- [ ] Export history as CSV to clipboard
 - [ ] Manage history (reorder and edit individual entries?)
 - [ ] Log passenger count
 - [ ] Log departure/arrival
+- [ ] Export history as CSV to clipboard
+- [x] Manual log entry
 
 ## Changes
 

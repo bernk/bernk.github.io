@@ -13,6 +13,7 @@
 
 ## Changes
 
+- [ ] Change history list to use divs instead of ul and li elements
 - [ ] Visually distinguish last logged location button
 - [ ] Log only true timestamp and derive other time formats from it
 - [ ] Add rounded time without colon

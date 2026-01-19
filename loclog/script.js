@@ -94,13 +94,15 @@ function logLocation(locationIndex) {
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const displayTime = `${hours}:${minutes}`;
-  const timeRounded = roundTime(now.getHours(),now.getMinutes());
+  const roundedTime = roundTime(now.getHours(),now.getMinutes());
 
   const entry = {
     locationDate: yyyymmdd, 
-    locationTime: {displayTime, timeRounded}, 
+    locationTime: {displayTime, roundedTime}, 
     locationName: location
   };
+
+  console.log(entry);
 
   locationLog.push(entry); // add to end of locationLog array
   saveLog();
@@ -193,7 +195,7 @@ function renderLogScreen() {
   list.innerHTML = locationLog.toReversed().map(entry => `
     <li>
     <span class='log-date'>${escapeHtml(entry.locationDate)}</span>
-    <span class='log-time'>${escapeHtml(entry.locationTime[0])}</span>
+    <span class='log-time'>${escapeHtml(entry.locationTime.displayTime)}</span>
     <span class='log-name'>${escapeHtml(entry.locationName)}</span>
     </li>
   `).join('');

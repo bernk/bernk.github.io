@@ -297,6 +297,10 @@ main {
     word-break: break-word;
 }
 
+.log-date {
+    color:#dddddd;
+}
+
 .log-list li:last-child {
     border-bottom: none;
 }

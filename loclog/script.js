@@ -90,10 +90,13 @@ function logLocation(locationIndex) {
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const time24Hour = `${hours}:${minutes}`;
 
-  // const entry = `ARRIVED at ${location} on ${isoDate} ${localTime}`;
-  const entry = `${isoDate} ${time24Hour} ${location}`;
+  const entry = {
+    locationDate: isoDate, 
+    locationTime: time24Hour, 
+    locationName: location
+  };
 
-  locationLog.unshift(entry); // newest first
+  locationLog.push(entry); // add to end of locationLog array
   saveLog();
 
   showToast(`Logged: ${location}`);
@@ -176,8 +179,16 @@ function renderLogScreen() {
   list.style.display = '';
   empty.style.display = 'none';
 
-  list.innerHTML = locationLog.map(entry => `
-    <li>${escapeHtml(entry)}</li>
+    // locationDate: isoDate, 
+    // locationTime: time24Hour, 
+    // locationName: location
+
+  list.innerHTML = locationLog.toReversed().map(entry => `
+    <li>
+    <span class='log-date'>${escapeHtml(entry.locationDate)}</span>
+    <span class='log-time'>${escapeHtml(entry.locationTime)}</span>
+    <span class='log-name'>${escapeHtml(entry.locationName)}</span>
+    </li>
   `).join('');
 }
 

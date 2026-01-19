@@ -93,11 +93,12 @@ function logLocation(locationIndex) {
 
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
-  const time24Hour = `${hours}:${minutes}`;
+  const displayTime = `${hours}:${minutes}`;
+  const timeRounded = roundTime(now.getHours(),now.getMinutes());
 
   const entry = {
     locationDate: yyyymmdd, 
-    locationTime: time24Hour, 
+    locationTime: {displayTime, timeRounded}, 
     locationName: location
   };
 
@@ -184,14 +185,15 @@ function renderLogScreen() {
   list.style.display = '';
   empty.style.display = 'none';
 
-    // locationDate: isoDate, 
-    // locationTime: time24Hour, 
+    // locationDate: yyyymmdd, 
+    // locationTime: displayTime, 
+    // locationTimeRounded: timeRounded, 
     // locationName: location
 
   list.innerHTML = locationLog.toReversed().map(entry => `
     <li>
     <span class='log-date'>${escapeHtml(entry.locationDate)}</span>
-    <span class='log-time'>${escapeHtml(entry.locationTime)}</span>
+    <span class='log-time'>${escapeHtml(entry.locationTime[0])}</span>
     <span class='log-name'>${escapeHtml(entry.locationName)}</span>
     </li>
   `).join('');
@@ -223,6 +225,26 @@ function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+// function roundTime(time) {
+//   Takes '2400' time
+//   const hours = parseInt(time.slice(0, 2), 10);
+//   const minutes = parseInt(time.slice(2, 4), 10);
+//   const totalMinutes = hours * 60 + minutes;
+//   const rounded = Math.round(totalMinutes / 5) * 5;
+//   const newHours = Math.floor(rounded / 60) % 24;
+//   const newMinutes = rounded % 60;
+//   return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
+// }
+
+function roundTime(hours, minutes) {
+  // Takes two integers
+  const totalMinutes = hours * 60 + minutes;
+  const rounded = Math.round(totalMinutes / 5) * 5;
+  const newHours = Math.floor(rounded / 60) % 24;
+  const newMinutes = rounded % 60;
+  return String(newHours).padStart(2, '0') + String(newMinutes).padStart(2, '0');
 }
 
 // ============ Event Listeners ============

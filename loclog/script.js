@@ -84,14 +84,19 @@ function logLocation(locationIndex) {
   if (!location) return;
 
   const now = new Date();
-  const isoDate = now.toISOString().split('T')[0];
-  // const localTime = now.toLocaleTimeString();
+
+  const year = now.getFullYear();
+  const monthCorrected = now.getMonth()+1;
+  const month = monthCorrected.toString().padStart(2, '0');
+  const day = now.getDate().toString().padStart(2, '0');
+  const yyyymmdd = `${year}-${month}-${day}`;
+
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const time24Hour = `${hours}:${minutes}`;
 
   const entry = {
-    locationDate: isoDate, 
+    locationDate: yyyymmdd, 
     locationTime: time24Hour, 
     locationName: location
   };

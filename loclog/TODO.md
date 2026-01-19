@@ -2,9 +2,7 @@
 
 ## Bugs
 
-- [ ] Logged day seems to change
-- [x] Add location button has no right margin
-- [x] Delete location button has no right margin
+- [x] Logged date is UTC
 
 ## Features
 
@@ -19,6 +17,3 @@
 - [ ] Log only true timestamp and derive other time formats from it
 - [ ] Add rounded time without colon
 - [ ] Use unique colors for location buttons
-- [x] Change text in Clear All confirmation popup
-- [x] Add <meta name="apple-mobile-web-app-capable" content="yes"> 
-- [x] Add app icon

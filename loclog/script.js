@@ -272,35 +272,3 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
-
-// ============ Wake Lock ============
-// Request a wake lock
-let wakeLock = null;
-
-const requestWakeLock = async () => {
-  try {
-    wakeLock = await navigator.wakeLock.request('screen');
-    console.log('Wake Lock is active!');
-  } catch (err) {
-    console.error(`${err.name}, ${err.message}`);
-  }
-};
-
-// Release the wake lock (when the page is hidden, for example)
-const releaseWakeLock = async () => {
-  if (!wakeLock) return;
-  await wakeLock.release();
-  wakeLock = null;
-  console.log('Wake Lock is released!');
-};
-
-// Add an event listener to request the wake lock when the user interacts with the app
-// document.addEventListener('visibilitychange', () => {
-//   if (document.visibilityState === 'visible') {
-//     requestWakeLock();
-//   }
-// });
-
-// Initial request (needs user interaction, e.g., a button click, to work reliably)
-// A common practice is to call this function after a user-initiated event like 'touchstart'
-document.addEventListener('touchstart', requestWakeLock, { once: true });

@@ -187,15 +187,10 @@ function renderLogScreen() {
   list.style.display = '';
   empty.style.display = 'none';
 
-    // locationDate: yyyymmdd, 
-    // locationTime: displayTime, 
-    // locationTimeRounded: timeRounded, 
-    // locationName: location
-
   list.innerHTML = locationLog.toReversed().map(entry => `
     <div class='log-list-entry'>
         <span class='log-date'>${escapeHtml(entry.locationDate)}</span>
-        <span class='log-time'>${escapeHtml(entry.locationTime.displayTime)}</span>
+        <span class='log-time'>${escapeHtml(entry.locationTime.roundedTime)}</span>
         <span class='log-name'>${escapeHtml(entry.locationName)}</span>
     </div>
   `).join('');

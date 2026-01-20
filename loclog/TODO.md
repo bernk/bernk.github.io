@@ -6,6 +6,7 @@
 
 ## Features
 
+- [ ] Save manual entry as quick log
 - [ ] Manage history (reorder and edit individual entries?)
 - [ ] Log passenger count
 - [ ] Log departure/arrival

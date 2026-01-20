@@ -18,7 +18,7 @@
   </nav>
 
   <main>
-    <!-- Main Screen: Tap to log arrivals -->
+    <!-- ============ Log Screen ============ -->
     <section id="main-screen" class="screen active" aria-label="Log arrivals">
       <div class="locations-grid" id="locations-grid">
         <!-- Location buttons rendered by JS -->
@@ -29,10 +29,10 @@
       </div>
     </section>
 
-    <!-- Manage Screen: Add/edit/delete/reorder locations -->
+    <!-- ============ Quick Logs Screen ============ -->
     <section id="manage-screen" class="screen" aria-label="Manage locations">
       <div class="add-form">
-        <input type="text" id="new-location-input" placeholder="New location name" enterkeyhint="done" aria-label="New location name" maxlength="50">
+        <input type="text" id="new-location-input" placeholder="New Quick Log name" enterkeyhint="done" aria-label="New location name" maxlength="50">
       </div>
       <ul class="manage-list" id="manage-list">
         <!-- Location items rendered by JS -->
@@ -42,7 +42,7 @@
       </div>
     </section>
 
-    <!-- Log Screen: View arrival history -->
+    <!-- ============ Logbook Screen ============ -->
     <section id="log-screen" class="screen" aria-label="Arrival history">
       <div class="log-actions">
         <button class="clear-btn" id="clear-log-btn" aria-label="Clear all history">Clear All</button>
@@ -54,8 +54,11 @@
         <p>Nothing logged yet.</p>
       </div>
     </section>
+  
   </main>
 
+  <!-- ============ UI Extras ============ -->  
+  
   <div class="toast" id="toast" aria-live="polite"></div>
 
   <div class="manual-card-overlay" id="manual-card-overlay">
@@ -63,8 +66,7 @@
       <h2>Manual Entry</h2>
       <input type="text" id="manual-input" placeholder="Enter location" enterkeyhint="done" maxlength="50">
       <div class="manual-card-actions">
-        <button class="manual-card-cancel" id="manual-cancel-btn">Cancel</button>
-        <button class="manual-card-submit" id="manual-submit-btn">Log</button>
+        <button class="manual-card-submit" id="manual-submit-btn">Log and Save</button>
       </div>
     </div>
   </div>

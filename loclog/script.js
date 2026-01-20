@@ -58,7 +58,7 @@ function showScreen(screenId) {
   if (screenId === 'log') renderLogScreen();
 }
 
-// ============ Main Screen ============
+// ============ Log Screen ============
 function renderMainScreen() {
   const grid = document.getElementById('locations-grid');
   const empty = document.getElementById('main-empty');
@@ -155,7 +155,7 @@ function hideManualInput() {
   overlay.classList.remove('show');
 }
 
-// ============ Manage Screen ============
+// ============ Quick Logs Screen ============
 function renderManageScreen() {
   const list = document.getElementById('manage-list');
   const empty = document.getElementById('manage-empty');
@@ -218,7 +218,7 @@ function moveLocation(index, direction) {
   renderManageScreen();
 }
 
-// ============ Log Screen ============
+// ============ Logbook Screen ============
 function renderLogScreen() {
   const list = document.getElementById('log-list');
   const empty = document.getElementById('log-empty');
@@ -313,12 +313,12 @@ function initEventListeners() {
   });
 
   document.getElementById('manual-submit-btn').addEventListener('click', () => {
-    const input = document.getElementById('manual-input');
-    logManualEntry(input.value);
+    const manualEntryValue =  document.getElementById('manual-input').value;
+    logManualEntry(manualEntryValue);
+    addLocation(manualEntryValue);
+    renderMainScreen();
     hideManualInput();
   });
-
-  document.getElementById('manual-cancel-btn').addEventListener('click', hideManualInput);
 
   document.getElementById('manual-card-overlay').addEventListener('click', (e) => {
     if (e.target.matches('.manual-card-overlay')) {

@@ -6,16 +6,10 @@
 
 ## Features
 
-- [ ] Save manual entry as quick log
-- [ ] Manage history (reorder and edit individual entries?)
-- [ ] Log passenger count
-- [ ] Log departure/arrival
-- [ ] Export history as CSV to clipboard
-- [x] Manual log entry
+- Logbook editing (can be done in the paste, can always add a note entry)
+- Log passenger count (can be done with manual entry for now)
+- Export history as CSV to clipboard (needs https)
 
 ## Changes
 
-- [ ] Use unique colors for location buttons
-- [x] Visually distinguish last logged location button
-- [x] Add rounded time without colon
-- [x] Change history list to use divs instead of ul and li elements
+- Use unique colors for location buttons

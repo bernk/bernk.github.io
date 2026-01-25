@@ -252,9 +252,13 @@ function clearLog() {
 }
 
 function clearLastLog() {
-  locationLog.pop();
-  saveLog();
-  renderLogScreen();
+  if (locationLog.length === 0) return;
+
+  if (confirm('Clear last log?')) {
+    locationLog.pop();
+    saveLog();
+    renderLogScreen();
+  }
 }
 
 // ============ Toast ============

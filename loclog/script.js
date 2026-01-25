@@ -251,6 +251,12 @@ function clearLog() {
   }
 }
 
+function clearLastLog() {
+  locationLog.pop();
+  saveLog();
+  renderLogScreen();
+}
+
 // ============ Toast ============
 function showToast(message) {
   const toast = document.getElementById('toast');
@@ -361,6 +367,7 @@ function initEventListeners() {
 
   // Log screen - clear
   document.getElementById('clear-log-btn').addEventListener('click', clearLog);
+  document.getElementById('clear-last-log-btn').addEventListener('click', clearLastLog);
 }
 
 // ============ Init ============
